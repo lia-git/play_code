@@ -121,7 +121,7 @@ def main():
         eval_model = PTBModel(False, EVAL_BATCH_SIZE, EVAL_NUM_STEP)
 
     # 训练模型。
-    with tf.Session() as session:
+    with tf.Session(config=tf.ConfigProto(log_device_placement=True)) as session:
         tf.global_variables_initializer().run()
 
         train_queue = reader.ptb_producer(train_data, train_model.batch_size, train_model.num_steps)
