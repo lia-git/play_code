@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Jun 01 16:34:45 2016
 
-@author: Richer
-"""
 #%%修改记录
 #1.将最后一层激活函数改为线性
 #2.歌手播放曲线以歌曲量均值化（被第 4 点替换掉了）
@@ -48,7 +44,7 @@ userDsExcep = 0                          # 用户表行为不在20150301-2015083
 #%% 表处理---歌曲艺人数据
 
 from copy import deepcopy
-fileSong = open("p2_mars_tianchi_songs.csv")
+fileSong = open("mars_tianchi_songs.csv")
 songData = fileSong.readlines()
 
 bigSongDict = {}  # 以歌曲为中心的大表
@@ -165,7 +161,7 @@ for singer in singerDict.keys():
 del tpPlayList, tpDownList, tpCollectList, singer,meanPlays,stdPlays
 
 #%%对每个歌手的播放曲线进行FFT变换
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import math
 
 #i = 0
@@ -238,7 +234,7 @@ import math
 
 xVal = range(len(dateList)) #x坐标值
 i = 0
-
+'''
 while i < len(singerInfoList):  # 每个歌手播放曲线
     flagY = i % 9
     if flagY == 0:
@@ -250,7 +246,7 @@ while i < len(singerInfoList):  # 每个歌手播放曲线
     plt.plot(singerInfoList[artList[i]]['colloctRec'],'r')
 
     i += 1
-
+'''
 
 del flagY
 
@@ -315,11 +311,13 @@ while i < nObjSgr:
 del meanPlays,stdPlays,maxPlays,artSg
 
 #所有歌手的播放下载收藏曲线放在一起
+'''
 plt.figure(figsize = (10,8), dpi = 150)
 plt.plot(playList,'k')
 plt.plot(downList,'b')
 plt.plot(collectList,'r')
 plt.title('overall playK-downB-colloctR')
+'''
 
 #相关参数（影响结果的重要参数）
 seqLength = 10                                  #序列长度
@@ -358,6 +356,7 @@ while i < nSinger:
     i +=1
 
 #均值滤波结果显示
+'''
 i = 0
 while i < nSinger:
     flagY = i % 9
@@ -370,7 +369,7 @@ while i < nSinger:
     plt.plot(playList[stPt:endPt],'k')
     plt.plot(avePlayList[stPt:endPt],'b')
     i += 1
-
+'''
 
 
 dateSet = pd.DataFrame({"avePlay":avePlayList,"play":playList,"varPlay":varPlayList}) #全体数据集
@@ -404,6 +403,7 @@ dateSetOrigin = deepcopy(dateSet)    # 原始数据集保存一份
 
 
 #所有歌手的播放曲线
+'''
 plt.figure(figsize = (10,8), dpi = 150)
 plt.plot(dateSet['play'],'k')
 plt.plot(dateSet['avePlay'],'b')
@@ -411,6 +411,7 @@ plt.plot(dateSet['varPlay'],'g')
 plt.xlabel('index')
 plt.ylabel('playK-avePlayB')
 plt.title('overall playK-avePlayB-varPlayG - preprocessed')
+'''
 
 #%%训练集测试集划分
 def load_data(data, n_prev = 14):  
