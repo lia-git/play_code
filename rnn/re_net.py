@@ -117,6 +117,7 @@ def main():
     with tf.variable_scope("language_model", reuse=None, initializer=initializer):
         train_model = PTBModel(True, TRAIN_BATCH_SIZE, TRAIN_NUM_STEP)
 
+
     with tf.variable_scope("language_model", reuse=True, initializer=initializer):
         eval_model = PTBModel(False, EVAL_BATCH_SIZE, EVAL_NUM_STEP)
 
