@@ -164,123 +164,13 @@ del tpPlayList, tpDownList, tpCollectList, singer,meanPlays,stdPlays
 #import matplotlib.pyplot as plt
 import math
 
-#i = 0
-#if _ISTEST == True:
-#    while i < len(singerInfoList):
-#        flagY = i % 9
-#        if flagY ==0:
-#            plt.figure(figsize = (10,8), dpi = 150)
-#            plt.suptitle('FFT process')
-#        plt.subplot(3,3,flagY + 1)
-#        fAmp = np.fft.fft(singerInfoList[artList[i]]['playRec']) / len(dateList)
-#        plt.stem(abs(fAmp[1:(len(fAmp)/2)]))
-#        i += 1
-#        del fAmp
-#
-#pdb.set_trace()
-
-#predictTestFFT = {} #使用FFT回归预测结果
-#playLth = 0 #选取播放序列的长度做FFT
-#chsNum = np.ones(len(singerInfoList),dtype=np.int) * 1  #选择前10个峰值做趋势预测
-##chsNum[0] = 10
-##chsNum[5] = 10
-##chsNum[7] = 10
-##chsNum[8] = 10
-##chsNum[10] = 10
-##chsNum[17] = 10
-##chsNum[21] = 10
-##chsNum[22] = 10
-#
-#if _ISTEST == True:
-#    playLth = len(dateList) - len(objDateL)
-#else:
-#    playLth = len(dateList)
-#
-#j = 0 #歌手索引
-#i = 0 #FFT索引
-#while j < len(singerInfoList):
-#    i = 0
-#    ampFFT = np.fft.fft(singerInfoList[artList[j]]['playRec'][:playLth]) / playLth
-#    sortInd = sorted(xrange(len(ampFFT)),key = (abs(ampFFT)).__getitem__,reverse = True) #降序排列
-#    chsAmp = np.zeros(chsNum[j])
-#    while i < chsNum[j]:
-#        chsAmp[i] = ampFFT[sortInd[i]]
-#        i += 1
-#    dateRcon = np.zeros((playLth + len(objDateL)))
-#    ind = np.arange(0,len(dateRcon),1.0) / len(ampFFT) * (2 * np.pi)
-#    for k, p in enumerate(chsAmp):
-#        if k != 0:
-#            p *= 2
-#        dateRcon += np.real(p) * np.cos(k * ind)
-#        dateRcon -= np.imag(p) * np.sin(k * ind)
-#    predictTestFFT[artList[j]] = {}
-#    predictTestFFT[artList[j]]['playRec'] = deepcopy((list(dateRcon))[playLth:(playLth + len(objDateL))])
-#    
-#    if _ISTEST == True:
-#        flagY = j % 9
-#        if flagY == 0:
-#            plt.figure(figsize = (10,8),dpi = 150)
-#            plt.suptitle('predict test play - use fft')
-#        plt.subplot(3,3,flagY + 1)
-#        plt.plot(singerInfoList[artList[j]]['playRec'][playLth:(playLth + len(objDateL))],'b')
-#        plt.plot(predictTestFFT[artList[j]]['playRec'],'g')
-#    j += 1
-#    del ampFFT,sortInd,chsAmp,dateRcon,ind
-#        
-#        
-#pdb.set_trace()
 
 #%% 绘制歌手播放，下载，收藏曲线
 
 xVal = range(len(dateList)) #x坐标值
 i = 0
-'''
-while i < len(singerInfoList):  # 每个歌手播放曲线
-    flagY = i % 9
-    if flagY == 0:
-        plt.figure(figsize = (10,8), dpi = 150)
-        plt.suptitle('every singer average playK-downloadB-colloctR line')
-    plt.subplot(3,3,flagY + 1)
-    plt.plot(singerInfoList[artList[i]]['playRec'],'k')
-    plt.plot(singerInfoList[artList[i]]['downloadRec'],'b')
-    plt.plot(singerInfoList[artList[i]]['colloctRec'],'r')
-
-    i += 1
-'''
 
 del flagY
-
-#%%提取歌手的标准差信息并进行排序
-
-#nCls = 1  #分类数
-#clsTh = 0 #第几类
-#
-#nSgrToCls = [] #每类的歌手数量列表
-#stdPlayList = [] #所有歌手标准差列表
-#indStdList = []  #排序后的数据在原始序列中的索引
-#
-#i = 0
-#while i < len(artList):
-#    stdPlayList.append(singerInfoList[artList[i]]['stdPlay'])
-#    i += 1
-#
-#indStdList = sorted(xrange(len(stdPlayList)),key = stdPlayList.__getitem__) #默认降序排列
-#
-#i = 0 
-#while i < (nCls - 1):
-#    nSgrToCls.append(int(len(singerInfoList) / nCls))
-#    i += 1
-#if nCls == 1:
-#    nSgrToCls.append(int(len(singerInfoList)))
-#else:
-#    nSgrToCls.append(int(len(singerInfoList) - (nCls - 1) * nSgrToCls[0]))
-#
-#nObjSgr = nSgrToCls[clsTh]  #目标歌手数量
-#objInd = []                 #初始化-对应的索引
-#if clsTh == (nCls -1):
-#    objInd = indStdList[( (nCls - 1) * nSgrToCls[0] ):]
-#else:
-#    objInd = indStdList[(clsTh * nSgrToCls[0]):((clsTh + 1) * nSgrToCls[0])]
 
 nObjSgr = len(singerInfoList)
 objInd = range(nObjSgr)
@@ -309,15 +199,6 @@ while i < nObjSgr:
 
     i += 1
 del meanPlays,stdPlays,maxPlays,artSg
-
-#所有歌手的播放下载收藏曲线放在一起
-'''
-plt.figure(figsize = (10,8), dpi = 150)
-plt.plot(playList,'k')
-plt.plot(downList,'b')
-plt.plot(collectList,'r')
-plt.title('overall playK-downB-colloctR')
-'''
 
 #相关参数（影响结果的重要参数）
 seqLength = 10                                  #序列长度
@@ -355,63 +236,11 @@ while i < nSinger:
         j +=1
     i +=1
 
-#均值滤波结果显示
-'''
-i = 0
-while i < nSinger:
-    flagY = i % 9
-    if flagY == 0:
-        plt.figure(figsize = (10,8), dpi =150)
-        plt.suptitle('average filter-play-originalK filterB')
-    plt.subplot(3,3,flagY + 1)
-    stPt = i * lenDate
-    endPt = (i + 1) * lenDate
-    plt.plot(playList[stPt:endPt],'k')
-    plt.plot(avePlayList[stPt:endPt],'b')
-    i += 1
-'''
 
 
 dateSet = pd.DataFrame({"avePlay":avePlayList,"play":playList,"varPlay":varPlayList}) #全体数据集
 dateSet.to_csv("originalDataSet.csv")
 dateSetOrigin = deepcopy(dateSet)    # 原始数据集保存一份
-
-# 数据预处理 去均值 方差归一 缩放到[-1 1]
-#if _DEBUG == True:
-#    pdb.set_trace()
-
-#avePlayMean = dateSet['avePlay'].mean()
-##downMean = dateSet['down'].mean()
-#playMean = dateSet['play'].mean()
-#
-#dateSet['avePlay'] = dateSet['avePlay'] - avePlayMean
-##dateSet['down'] = dateSet['down'] - downMean
-#dateSet['play'] = dateSet['play'] - playMean
-#
-#avePlayStd = dateSet['avePlay'].std()
-##downStd = dateSet['down'].std()
-#playStd = dateSet['play'].std()
-#
-#dateSet['avePlay'] = dateSet['avePlay'] / avePlayStd
-##dateSet['down'] = dateSet['down'] / downStd
-#dateSet['play'] = dateSet['play'] / playStd
-#
-#factorMax = abs(dateSet).max().max() + 0.05
-#
-#dateSet = dateSet / factorMax
-#dateSet.to_csv("preproceeDataSet.csv")
-
-
-#所有歌手的播放曲线
-'''
-plt.figure(figsize = (10,8), dpi = 150)
-plt.plot(dateSet['play'],'k')
-plt.plot(dateSet['avePlay'],'b')
-plt.plot(dateSet['varPlay'],'g')
-plt.xlabel('index')
-plt.ylabel('playK-avePlayB')
-plt.title('overall playK-avePlayB-varPlayG - preprocessed')
-'''
 
 #%%训练集测试集划分
 def load_data(data, n_prev = 14):  
@@ -592,22 +421,6 @@ if _ISTEST == True:
         del orgValue
     del artSg
 
-
-#i = 0
-#while i <nSinger:                                 # 收藏预测曲线
-#    flagY = i % 9
-#    if flagY == 0:
-#        plt.figure(figsize = (10,8), dpi = 150)
-#
-#    plt.subplot(3,3,flagY +1)
-#    orgValue = pd.DataFrame(needPredict[i])
-#    plt.plot(xIndex,predictTest[artList[i]]['colloctRec'],'g')
-#    plt.plot(xIndex,orgValue[0],'b')
-#    
-#    i += 1
-#    del orgValue
-#plt.suptitle('test-predict colloct')
-
 #%%预测---还原到原始数据集
 if _ISTEST == True:
     i = 0
@@ -732,31 +545,6 @@ if _ISTEST == True:
 #    resF = pd.DataFrame({"singerf":singerF})
 #    resF.to_csv("singerF.csv")
 
-
-#%%使用均值预测后的评价指标值
-#singerF_AVG = [] # 每个歌手的评价指标值 F
-#sumF = 0
-#i = 0
-#while i < nSinger:
-#    meanPlays = singerInfoList[artList[i]]['meanPlay']
-#    stdPlays = singerInfoList[artList[i]]['stdPlay']
-#    maxPlays = singerInfoList[artList[i]]['maxPlay']
-#    
-#    orgValue = ((pd.DataFrame(needPredict[i]))[1]) * maxPlays * stdPlays + meanPlays
-#    aftValue = ((pd.DataFrame(predictTest[artList[i]]['avePlay']))[0]) * maxPlays * stdPlays + meanPlays
-#    
-#    tempArr = (np.array(aftValue) - np.array(orgValue)) / (np.array(orgValue))
-#    tempS = ((tempArr * tempArr).sum()) / len(objDateL)
-#    theta = math.sqrt(tempS)
-#    
-#    tempFi = math.sqrt((np.array(orgValue)).sum())
-#    sumF = sumF + (1-theta) * tempFi
-#    
-#    singerF_AVG.append((1-theta) * tempFi)
-#    
-#    i += 1
-#    del orgValue,aftValue,tempArr
-#sum(singerF_AVG[:36]) + sum(singerF_AVG[37:56]) + sum(singerF_AVG[57:])
 
 #%%写入到预测文件
 if _ISTEST == False:
