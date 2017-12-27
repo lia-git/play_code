@@ -56,7 +56,7 @@ def main_1(part, s, e):
          'reserve_datetime_y', 'reserve_visitors_y'], axis=1, inplace=True)
     print(cross_reserve.columns.tolist())
     print(cross_reserve.size)
-    if "1" in part:
+    if "20160101" in part:
         np_reserve = np.array([0]*183)
         np_actual = np.array([0]*183)
     else:
@@ -270,14 +270,14 @@ if __name__ == '__main__':
 
 
 
-    # v = get_data_from_redis("p2")
-    # tempList = pd.date_range(start="2016-07-01", end="2017-04-22", freq='D')
-    # days = [str(i)[:10] for i in tempList]
-    # plot_fig("p2",days,v["actual"],v["reserve"])
+    v = get_data_from_redis("20160701_20170423")
+    tempList = pd.date_range(start="2016-07-01", end="2017-04-22", freq='D')
+    days = [str(i)[:10] for i in tempList]
+    plot_fig("20160701_20170423",days,v["actual"],v["reserve"])
     #
     #
     #
     #
-    main_1("p2", "2016-07-01", "2017-04-23")
-    main_1("p1", "2016-01-01", "2016-07-01")
+    # main_1("20160701_20170423", "2016-07-01", "2017-04-23")
+    # main_1("20160101_20160701", "2016-01-01", "2016-07-01")
     # # main_2()
