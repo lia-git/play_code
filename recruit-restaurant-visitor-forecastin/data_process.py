@@ -11,9 +11,9 @@ def get_time_pd(start, end):
     tempList = pd.date_range(start=start, end=end, freq='D')
     date_pd = pd.DataFrame({"date": tempList, "value": pd.Series([1] * len(tempList))})
     date_pd["date"] = date_pd["date"].dt.strftime("%Y-%m-%d")
-    print date_pd.index
+    print (date_pd.index)
     # date_pd.index = date_pd["date"
-    print date_pd.index
+    print (date_pd.index)
     day_list = [str(i)[:10] for i in tempList]
 
     day_dict = {}.fromkeys(day_list, 1)
@@ -88,7 +88,7 @@ def main_1(part, s, e):
         print(air_reserve["visit_datetime"].max())
         print(air_reserve["visit_datetime"].min())
 
-        print air_reserve.dtypes
+        print( air_reserve.dtypes)
         # air_reserve = pd.merge(air_reserve,date_pd,left_on="visit_datetime",right_on="date")
         day_reserve = air_reserve.groupby(["visit_datetime"]).agg({'reserve_visitors': sum})
         day_reserve_dict = day_reserve.to_dict()["reserve_visitors"]
@@ -186,7 +186,7 @@ def main_2():
     print(air_reserve["visit_datetime"].max())
     print(air_reserve["visit_datetime"].min())
 
-    print air_reserve.dtypes
+    print (air_reserve.dtypes)
     day_reserve = air_reserve.groupby(["visit_datetime"]).agg({'reserve_visitors': sum})
     day_reserve_dict = day_reserve.to_dict()["reserve_visitors"]
     x = dict(Counter(day_reserve_dict) | Counter(day_dict))
