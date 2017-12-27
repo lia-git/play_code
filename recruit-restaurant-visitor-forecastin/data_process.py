@@ -93,7 +93,7 @@ def main_1(part, s, e):
         day_reserve = air_reserve.groupby(["visit_datetime"]).agg({'reserve_visitors': sum})
         day_reserve_dict = day_reserve.to_dict()["reserve_visitors"]
         x = dict(Counter(day_reserve_dict) | Counter(day_dict))
-        pd_1 = pd.DataFrame(x.items(), columns=['date', 'number'])
+        pd_1 = pd.DataFrame(list(x.items()), columns=['date', 'number'])
         pd_1.sort_values(["date"], inplace=True)
         visitors_reserve = (pd_1['number'] - 1).tolist()
 
@@ -108,7 +108,7 @@ def main_1(part, s, e):
         day_visit = air_visit_data.groupby(["visit_date"]).agg({"visitors": sum})
         day_visit_dict = day_visit.to_dict()["visitors"]
         x = dict(Counter(day_visit_dict) | Counter(day_dict))
-        pd_x = pd.DataFrame(x.items(), columns=['date', 'number'])
+        pd_x = pd.DataFrame(list(x.items()), columns=['date', 'number'])
         pd_x.sort_values(["date"], inplace=True)
         visitors_actual = (pd_x['number'] - 1).tolist()
         np_reserve += np.array(visitors_reserve)
@@ -266,14 +266,18 @@ if __name__ == '__main__':
     redis_pool = redis.ConnectionPool(host="127.0.0.1", port=6379)
     redis_conn = redis.Redis(connection_pool=redis_pool)
     # save_redis(stores)
-    v = get_data_from_redis("p2")
-    tempList = pd.date_range(start="2016-07-01", end="2017-04-22", freq='D')
-    days = [str(i)[:10] for i in tempList]
-    plot_fig("p2",days,v["actual"],v["reserve"])
 
 
 
 
-    # main_1("p2", "2016-07-01", "2017-04-23")
-    # main_1("p1", "2016-01-01", "2016-07-01")
-    # main_2()
+    # v = get_data_from_redis("p2")
+    # tempList = pd.date_range(start="2016-07-01", end="2017-04-22", freq='D')
+    # days = [str(i)[:10] for i in tempList]
+    # plot_fig("p2",days,v["actual"],v["reserve"])
+    #
+    #
+    #
+    #
+    main_1("p2", "2016-07-01", "2017-04-23")
+    main_1("p1", "2016-01-01", "2016-07-01")
+    # # main_2()
